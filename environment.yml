@@ -1,4 +1,4 @@
-name: lab07-first-principles
+name: lab08-same-model-twice
 channels:
   - conda-forge
 dependencies:
