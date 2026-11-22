@@ -20,7 +20,9 @@ from train import (
 )
 
 
-def train(seed: int = SEED, path: str | None = "bike_net.keras") -> dict:
+def train(
+    seed: int = SEED, path: str | None = "bike_net.keras", epochs: int = EPOCHS
+) -> dict:
     """Train with callbacks, keep the best epoch, and score the test rows once."""
     keras.utils.set_random_seed(seed)
     splits = make_splits(SEED)
@@ -36,7 +38,7 @@ def train(seed: int = SEED, path: str | None = "bike_net.keras") -> dict:
 
     callbacks = [
         keras.callbacks.EarlyStopping(
-            monitor="val_loss", patience=EPOCHS, restore_best_weights=True
+            monitor="val_loss", patience=epochs, restore_best_weights=True
         ),
     ]
     if path:
@@ -50,7 +52,7 @@ def train(seed: int = SEED, path: str | None = "bike_net.keras") -> dict:
         x,
         y,
         validation_data=(x_val, y_val),
-        epochs=EPOCHS,
+        epochs=epochs,
         batch_size=BATCH_SIZE,
         callbacks=callbacks,
         verbose=0,
